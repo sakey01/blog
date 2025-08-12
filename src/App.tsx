@@ -22,14 +22,14 @@ function App() {
           <li>cd my-project</li>
           <li>npm install tailwindcss @tailwindcss/vite</li>
           <li>
-            Add the <code>@tailwindcss/vite</code> plugin to your Vite configuration:
+            Add the <code>@tailwindcss/vite</code> plugin + import to your Vite configuration:
             <pre className="bg-gray-900 text-sm p-4 rounded mt-2 overflow-x-auto">
               {`import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
+import tailwindcss from '@tailwindcss/vite'   // here
 
 export default defineConfig({
   plugins: [
-    tailwindcss(),
+    tailwindcss(),    // here 
   ],
 })`}
             </pre>
