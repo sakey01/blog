@@ -1,6 +1,6 @@
 ## Personal Blog Page - in progress
 
-A personal blog ranging from from everyday shower thoughts to my general tech tips.
+A personal blog ranging from from everyday shower thoughts to general tech tips.
 
 ## Made with
 - React
