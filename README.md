@@ -7,3 +7,4 @@ A personal blog ranging from from everyday shower thoughts to general tech tips.
 - Tailwind CSS
 - Vite
 - Firebase (soon)
+  
