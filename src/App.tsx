@@ -1,17 +1,16 @@
 import "./index.css";
-import Home from "./pages/home";
-import CreateBlog from "./pages/create-blog";
+import Home from "./pages/home.";
 import SignIn from "./pages/sign-in";
+import CreatePost from "./pages/create-post";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/blog">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/blog" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
-        <Route path="/create-blog" element={<CreateBlog />} />
+        <Route path="/create-post" element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
   );

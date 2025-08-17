@@ -1,6 +1,6 @@
 import Navbar from "../components/navbar"
 
-export default function SignIn() {
+export default function CreatePost() {
 
     return (
         <div>

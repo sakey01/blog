@@ -45,7 +45,7 @@ const Navbar = () => {
           </Link>
         </button>
         <button className="btn flex items-center justify-center bg-stone-800 hover:bg-stone-600 rounded-md px-4 py-2 sm:py-4 text-sm sm:text-base transition-colors">
-          <Link to="/create-blog" className="w-full text-center">
+          <Link to="/create-post" className="w-full text-center">
             + Post
           </Link>
         </button>
