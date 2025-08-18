@@ -5,13 +5,13 @@
 }
 
 body {
-  background-color: #eff1f2;
+  background-color: #1c1917;
 }
 
 button {
   cursor: pointer;
 }
 
-.btn  {
-  padding: .75rem 1rem;
+.btn {
+  padding: 0.75rem 1rem;
 }

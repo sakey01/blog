@@ -5,12 +5,12 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-4 sm:top-10 left-1/2 -translate-x-1/2 flex flex-col sm:flex-row justify-between items-center w-[95%] sm:w-[90%] max-w-5xl px-4 sm:px-8 py-4 bg-stone-700 text-white shadow-md rounded-lg z-50">
+    <nav className="fixed top-4 sm:top-10 left-1/2 -translate-x-1/2 flex flex-col sm:flex-row justify-between items-center w-[95%] sm:w-[90%] px-4 sm:px-8 py-4 bg-stone-700 text-white shadow-md rounded-lg z-10">
       {/* Desktop/Mobile Header */}
       <div className="flex justify-between items-center w-full sm:w-auto">
-        <h1 className="text-lg sm:text-[1.4rem] font-semibold">
-          <Link to="/">Blog</Link>
-        </h1>
+        <Link to="/">
+          <h1 className="text-lg sm:text-[1.4rem] font-semibold">Blog</h1>
+        </Link>
 
         {/* Mobile hamburger menu button */}
         <button
@@ -39,16 +39,16 @@ const Navbar = () => {
           isMenuOpen ? "block" : "hidden sm:flex"
         }`}
       >
-        <button className="btn flex items-center justify-center bg-stone-800 hover:bg-stone-600 rounded-md px-4 py-2 sm:py-4 text-sm sm:text-base transition-colors">
-          <Link to="/sign-in" className="w-full text-center">
+        <Link to="/sign-in">
+          <button className="btn flex items-center text-nowrap bg-stone-800 hover:bg-stone-600 rounded-md px-4 py-2 sm: w-full justify-start">
             Sign In
-          </Link>
-        </button>
-        <button className="btn flex items-center justify-center bg-stone-800 hover:bg-stone-600 rounded-md px-4 py-2 sm:py-4 text-sm sm:text-base transition-colors">
-          <Link to="/create-post" className="w-full text-center">
+          </button>
+        </Link>
+        <Link to="/create-post">
+          <button className="btn flex items-center text-nowrap bg-stone-800 hover:bg-stone-600 rounded-md px-4 py-2 sm: w-full justify-start">
             + Post
-          </Link>
-        </button>
+          </button>
+        </Link>
       </div>
     </nav>
   );
