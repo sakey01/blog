@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HeartIcon } from "@heroicons/react/24/solid";
-import { doc, updateDoc, increment } from "firebase/firestore"; // import increment
+import { doc, updateDoc, increment } from "firebase/firestore";
 import { db } from "../firebase";
 
 const Card = ({
@@ -45,7 +45,7 @@ const Card = ({
             <div className="flex items-center gap-2">
               <span className="text-sm">{count}</span>
               <button
-                onClick={handleLike} // pass no args now
+                onClick={handleLike}
                 className="flex items-center justify-center h-[24px] w-[24px] bg-neutral-500 hover:bg-neutral-400 rounded-md transition-colors focus:transform scale-100"
               >
                 <HeartIcon className="h-[16px] w-[16px] text-neutral-300" />

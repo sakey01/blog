@@ -1,21 +1,32 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword, type User } from "firebase/auth";
 import { Link } from "react-router-dom";
 import Loading from "../components/loading";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Watch auth state
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+    const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       setUser(currentUser);
       setLoading(false);
+
+      if (currentUser) {
+        // fetch username from Firestore
+        const name = await getUsername(currentUser.uid);
+        setUsername(name);
+      } else {
+        setUsername(null);
+      }
     });
     return () => unsubscribe();
   }, []);
@@ -25,6 +36,10 @@ export default function SignIn() {
     try {
       const userCred = await signInWithEmailAndPassword(auth, email, password);
       setUser(userCred.user);
+
+      // fetch username after login
+      const name = await getUsername(userCred.user.uid);
+      setUsername(name);
     } catch (error) {
       console.log(error);
       setIsSuccess(false);
@@ -35,6 +50,7 @@ export default function SignIn() {
     try {
       await auth.signOut();
       setUser(null);
+      setUsername(null);
       setEmail("");
       setPassword("");
     } catch (e) {
@@ -42,14 +58,32 @@ export default function SignIn() {
     }
   };
 
+  async function getUsername(uid: string) {
+    try {
+      const userRef = doc(db, "users", uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        return data.username as string;
+      } else {
+        console.log("No such user!");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching username:", error);
+      return null;
+    }
+  }
+
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-stone-900 text-white">
+    <div className="grid min-h-screen justify-center items-center bg-stone-900 text-white">
       <Navbar />
       {user ? (
-        <div className="pt-60 grid justify-center gap-4">
-          <h2 className="text-2xl text-center">Welcome, {email} </h2>
+        <div className="grid gap-4 text-center">
+          <h2 className="text-2xl">Welcome, {username ?? "User"} 👋</h2>
           <p>To get started, create a post!</p>
           <button
             onClick={handleSignOut}
@@ -59,9 +93,9 @@ export default function SignIn() {
           </button>
         </div>
       ) : (
-        <div className="pt-60 grid justify-center gap-8">
+        <div className="grid justify-center gap-8">
           <h1 className="text-2xl text-center font-semibold">Sign In</h1>
-          <form onSubmit={handleSignIn} className=" grid justify-center gap-4">
+          <form onSubmit={handleSignIn} className="grid justify-center gap-4">
             <label htmlFor="email">Email</label>
             <input
               id="email"

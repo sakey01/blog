@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import { useEffect, useState } from "react";
 import Loading from "../components/loading";
 
+// Object component
 type Post = {
   id: string;
   title: string;
@@ -17,11 +18,17 @@ export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetching data from firebase
+   useEffect(() => {
+      
+      
+    }, []);
+
+  // Fetch data from Firestore
   useEffect(() => {
     async function fetchPosts() {
       try {
         const snapshot = await getDocs(collection(db, "posts"));
+        
         setLoading(false);
 
         const postsList = snapshot.docs.map((doc) => {
@@ -34,7 +41,7 @@ export default function Home() {
             likes: data.likes ?? 0,
           };
         });
-        // Storing mapped data in 'posts' to render them later
+
         setPosts(postsList);
       } catch (error) {
         console.log("couldn't fetch post", error);
@@ -46,12 +53,12 @@ export default function Home() {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-stone-900 text-white">
+    <div className="grid min-h-screen bg-stone-900 text-white">
       <Navbar />
-      <main className="pt-60 grid justify-center">
+      <main className="grid justify-center mt-40">
         <section
           className="
-        grid gap-8 
+        grid items-center gap-8 
         sm:grid-cols-1 
         md:grid-cols-2 
         lg:grid-cols-3
