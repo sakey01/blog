@@ -9,7 +9,7 @@ const Navbar = () => {
       {/* Desktop/Mobile Header */}
       <div className="flex justify-between items-center w-full sm:w-auto">
         <Link to="/">
-          <h1 className="text-lg sm:text-[1.4rem] font-semibold">Blog</h1>
+          <h1 className="text-lg sm:text-[1.4rem] font-semibold">Blog Page</h1>
         </Link>
 
         {/* Mobile hamburger menu button */}
@@ -46,7 +46,7 @@ const Navbar = () => {
         </Link>
         <Link to="/create-post">
           <button className="btn flex items-center text-nowrap bg-stone-800 hover:bg-stone-600 rounded-md px-4 py-2 sm: w-full justify-start">
-            + Post
+            Post
           </button>
         </Link>
       </div>

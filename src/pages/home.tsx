@@ -3,35 +3,38 @@ import Card from "../components/card";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { useEffect, useState } from "react";
+import Loading from "../components/loading";
 
 type Post = {
   id: string;
   title: string;
   content: string;
   author: string;
-  likeCount?: number;
+  likes: number;
 };
 
 export default function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
 
+  // Fetching data from firebase
   useEffect(() => {
     async function fetchPosts() {
       try {
         const snapshot = await getDocs(collection(db, "posts"));
-       
+        setLoading(false);
+
         const postsList = snapshot.docs.map((doc) => {
           const data = doc.data();
-          console.log(doc);
           return {
             id: doc.id,
             title: data.title,
             content: data.content,
             author: data.author,
-            likeCount: data.likeCount,
+            likes: data.likes ?? 0,
           };
         });
-
+        // Storing mapped data in 'posts' to render them later
         setPosts(postsList);
       } catch (error) {
         console.log("couldn't fetch post", error);
@@ -40,11 +43,12 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  if (loading) return <Loading />;
+
   return (
     <div className="min-h-screen bg-stone-900 text-white">
       <Navbar />
-
-      <main className="px-4 py-40 grid justify-center">
+      <main className="pt-60 grid justify-center">
         <section
           className="
         grid gap-8 
