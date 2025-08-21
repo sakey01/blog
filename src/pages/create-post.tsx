@@ -7,12 +7,14 @@ import type { User } from "firebase/auth";
 import Loading from "../components/loading";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useUser } from "../hooks/useUser";
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const { username } = useUser();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
@@ -25,13 +27,14 @@ export default function CreatePost() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (title.length < 3 || content.length < 20) return;
+    if (title.length < 5 || content.length < 20 || title.length > 100 || content.length > 750)
+      return;
 
     try {
       await addDoc(collection(db, "posts"), {
         title,
         content,
-        author: user?.displayName || "Anonymous",
+        author: username || "anonymous",
         uid: user?.uid,
         createdAt: serverTimestamp(),
         likes: 0,
@@ -39,7 +42,7 @@ export default function CreatePost() {
 
       setTitle("");
       setContent("");
-      toast.success("Post created!");
+      toast.success(<span>Post Created</span>);
     } catch (error) {
       console.error("Error adding document: ", error);
       toast.error("Failed to create post");
@@ -49,65 +52,93 @@ export default function CreatePost() {
   if (loading) return <Loading />;
 
   return (
-    <div className="min-h-screen bg-stone-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-700/20 via-transparent to-transparent"></div>
+
       <Navbar />
 
       {!user ? (
-        <div className="flex items-center justify-center min-h-screen">
-          <p>
-            Please{" "}
-            <Link to="/sign-in" className="text-blue-400 underline hover:text-blue-300">
-              sign in
-            </Link>{" "}
-            to create a post.
-          </p>
+        <div className="relative flex items-center justify-center min-h-screen px-6 py-32">
+          <div className="w-full max-w-md">
+            <div className="bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 shadow-2xl shadow-black/20 text-center">
+              <h2 className="text-2xl font-bold text-gray-200 mb-4">Please Sign In</h2>
+              <p className="text-gray-400">
+                You need to{" "}
+                <Link to="/sign-in" className="text-blue-400 underline hover:text-blue-300">
+                  sign in
+                </Link>{" "}
+                to create a post.
+              </p>
+            </div>
+          </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-screen px-4">
-          <h1 className="text-2xl font-semibold mb-6">Create New Post</h1>
+        <div className="relative flex items-center justify-center min-h-screen px-6 py-32">
+          <div className="w-full max-w-lg">
+            <div className="bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 shadow-2xl shadow-black/20">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent mb-2">
+                  Create New Post
+                </h1>
+                <p className="text-gray-400">Share your thoughts with the world</p>
+              </div>
 
-          <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
-            <div>
-              <label htmlFor="title" className="block mb-1 text-sm font-medium">
-                Title
-              </label>
-              <input
-                id="title"
-                type="text"
-                required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="w-full p-2 rounded bg-stone-800 border border-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {title.length > 0 && title.length < 3 && (
-                <p className="mt-1 text-sm text-red-400">Title must be at least 3 characters</p>
-              )}
+              {/* Form */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                {/* Title Field */}
+                <div>
+                  <label htmlFor="title" className="block text-sm font-medium text-gray-300 mb-2">
+                    Title
+                  </label>
+                  <input
+                    id="title"
+                    type="text"
+                    required
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200"
+                    placeholder="Enter a title"
+                  />
+                  {title.length > 0 && (title.length < 5 || title.length > 100) && (
+                    <p className="mt-2 text-sm text-red-400">
+                      Title must be between 5 and 100 characters
+                    </p>
+                  )}
+                </div>
+
+                {/* Content Field */}
+                <div>
+                  <label htmlFor="content" className="block text-sm font-medium text-gray-300 mb-2">
+                    Content
+                  </label>
+                  <textarea
+                    id="content"
+                    required
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200 min-h-[120px] max-h-[280px]"
+                    placeholder="Write your post here..."
+                  />
+                  {content.length > 0 && (content.length < 20 || content.length > 750) && (
+                    <p className="mt-2 text-sm text-red-400">
+                      Content must be between 20 and 750 characters
+                    </p>
+                  )}
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={title.length < 3 || content.length < 20}
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 disabled:from-gray-600 disabled:to-gray-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 disabled:scale-100 disabled:shadow-none"
+                >
+                  Add Post
+                </button>
+              </form>
             </div>
-
-            <div>
-              <label htmlFor="content" className="block mb-1 text-sm font-medium">
-                Content
-              </label>
-              <textarea
-                id="content"
-                required
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                className="w-full p-2 rounded bg-stone-800 border border-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px] max-h-[250px]"
-              />
-              {content.length > 0 && content.length < 20 && (
-                <p className="mt-1 text-sm text-red-400">Content must be at least 20 characters</p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={title.length < 3 || content.length < 20}
-              className="w-full py-2 rounded bg-stone-700 hover:bg-stone-600 disabled:opacity-50"
-            >
-              Add Post
-            </button>
-          </form>
+          </div>
         </div>
       )}
     </div>
