@@ -11,7 +11,7 @@ A personal blog ranging from from everyday shower thoughts to general tech tips.
 ## Features
 - Sign up / Sign in with Firebase Auth
 - Upload and view public posts
-- Authors for post
+- Authors for posts
 - A like system to see what's popular
   
 ## Dependencies
@@ -22,7 +22,3 @@ A personal blog ranging from from everyday shower thoughts to general tech tips.
 - react-router-dom
 
 ## Screenshots
-![alt text](<Screenshot 2025-08-22 at 17.24.05.png>)
-![alt text](<Screenshot 2025-08-22 at 17.22.41.png>)
-![alt text](<Screenshot 2025-08-22 at 17.23.32.png>)
-![alt text](<Screenshot 2025-08-22 at 17.25.05.png>)
