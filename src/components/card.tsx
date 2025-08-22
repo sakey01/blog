@@ -36,7 +36,7 @@ const Card = ({
       });
     } catch (err) {
       console.error("Error updating likes:", err);
-      // Revert optimistic update on error
+      // Revert update on error
       setCount(count);
       setHasLiked(false);
     } finally {

@@ -7,7 +7,6 @@ import type { User } from "firebase/auth";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
-
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -41,6 +40,7 @@ export default function CreatePost() {
       return;
 
     try {
+      // Posts get saved in firebase db
       await addDoc(collection(db, "posts"), {
         title,
         content,

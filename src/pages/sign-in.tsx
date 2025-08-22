@@ -71,7 +71,7 @@ export default function SignIn() {
     try {
       const userRef = doc(db, "users", uid);
       const userSnap = await getDoc(userRef);
-
+      // Handles sign in status
       if (userSnap.exists()) {
         const data = userSnap.data();
         return data.username as string;
@@ -96,10 +96,10 @@ export default function SignIn() {
 
       <div className="relative flex items-center justify-center min-h-screen px-6 py-32">
         {user ? (
-          /* Welcome Screen */
+          /* Welcome screen */
           <div className="w-full max-w-md">
             <div className="bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 shadow-2xl shadow-black/20">
-              {/* Success Animation Container */}
+              {/* Success animation ccontainer */}
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full mb-6 animate-in zoom-in duration-500">
                   <svg
@@ -136,7 +136,7 @@ export default function SignIn() {
                 <p className="text-gray-300 mb-8">Ready to share your thoughts with the world?</p>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action buttons */}
               <div className="space-y-4">
                 <Link to="/create-post" className="block">
                   <button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25">
@@ -160,7 +160,7 @@ export default function SignIn() {
             </div>
           </div>
         ) : (
-          /* Sign In Form */
+          /* Sign in form */
           <div className="w-full max-w-md">
             <div className="bg-slate-800/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 shadow-2xl shadow-black/20">
               {/* Header */}
@@ -189,7 +189,7 @@ export default function SignIn() {
 
               {/* Form */}
               <form onSubmit={handleSignIn} className="space-y-6">
-                {/* Email Field */}
+                {/* Email field */}
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                     Email Address
@@ -223,7 +223,7 @@ export default function SignIn() {
                   </div>
                 </div>
 
-                {/* Password Field */}
+                {/* Password field */}
                 <div>
                   <label
                     htmlFor="password"
@@ -286,7 +286,7 @@ export default function SignIn() {
                   </div>
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit button */}
                 <button
                   type="submit"
                   disabled={isSigningIn}
@@ -303,7 +303,7 @@ export default function SignIn() {
                 </button>
               </form>
 
-              {/* Error Message */}
+              {/* Error message */}
               {isSuccess === false && (
                 <div className="mt-6 bg-red-500/10 border border-red-500/30 rounded-xl p-4 animate-in slide-in-from-top-2 duration-300">
                   <div className="flex items-center gap-3">
@@ -332,7 +332,7 @@ export default function SignIn() {
                 </div>
               )}
 
-              {/* Footer Links */}
+              {/* Footer links */}
               <div className="mt-8 text-center">
                 <Link
                   to="/sign-up"

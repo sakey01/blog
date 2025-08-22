@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 
-// Object component
+// Post type
 type Post = {
   id: string;
   title: string;
@@ -86,7 +86,6 @@ export default function Home() {
                     <p className="text-gray-400">{posts.length} {posts.length === 1 ? 'post' : 'posts'} available</p>
                   </div>
                   
-                  {/* Filter/Sort controls could go here */}
                   <div className="hidden sm:flex items-center space-x-2">
                     <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent flex-1"></div>
                   </div>
