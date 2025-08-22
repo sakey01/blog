@@ -1,24 +1,34 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import { db } from "../firebase";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { auth } from "../firebase";
-import type { User } from "firebase/auth";
 import Loading from "../components/loading";
+import { db, auth } from "../firebase";
+import { collection, addDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
+import type { User } from "firebase/auth";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useUser } from "../hooks/useUser";
+
 
 export default function CreatePost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [profile, setProfile] = useState<any>(null); 
   const [loading, setLoading] = useState(true);
-  const { username } = useUser();
 
+  // Track sign-in status and fetch profile
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((firebaseUser) => {
+    const unsubscribe = auth.onAuthStateChanged(async (firebaseUser) => {
       setUser(firebaseUser);
+      if (firebaseUser) {
+        const userRef = doc(db, "users", firebaseUser.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setProfile(userSnap.data());
+        }
+      } else {
+        setProfile(null);
+      }
       setLoading(false);
     });
 
@@ -34,7 +44,7 @@ export default function CreatePost() {
       await addDoc(collection(db, "posts"), {
         title,
         content,
-        author: username || "anonymous",
+        author: profile?.displayName || user?.displayName || "anonymous",
         uid: user?.uid,
         createdAt: serverTimestamp(),
         likes: 0,

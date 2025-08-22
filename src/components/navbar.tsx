@@ -23,13 +23,13 @@ const Navbar = () => {
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-slate-700/10 via-transparent to-slate-700/10 rounded-2xl"></div>
 
-        <div className="relative flex flex-col sm:flex-row justify-between px-6 py-4">
+        <div className="relative flex flex-col sm:flex-row justify-between px-6 sm:py-4">
           {/* Header */}
           <div className="flex justify-between items-center w-full sm:w-auto mt-6 sm:mt-0 ">
             <Link to="/" className="group">
               <div className="flex items-center space-x-3">
                 {/* Logo/Icon */}
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center group-hover: transition-transform duration-200">
+                <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex items-center justify-center group-hover: transition-transform duration-250">
                   <svg
                     className="w-5 h-5 text-white"
                     fill="none"
@@ -50,7 +50,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            {/* Mobile hamburger menu button */}
+            {/* Mobile menu button */}
             <button
               className="sm:hidden relative w-10 h-10 flex flex-col items-center justify-center rounded-lg bg-slate-700/50 hover:bg-slate-600/50 transition-colors duration-200"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -80,7 +80,7 @@ const Navbar = () => {
             className={`flex flex-col sm:flex-row gap-3 w-full sm:w-auto mt-6 sm:mt-0 transition-all duration-300 ${
               isMenuOpen
                 ? "opacity-100 max-h-40"
-                : "opacity-0 max-h-0 sm:opacity-100 sm:max-h-none overflow-hidden sm:overflow-visible"
+                : "opacity-0 max-h-0 sm:opacity-100 sm:max-h-none"
             }`}
           >
             <Link to="/sign-in" className="group">
@@ -100,7 +100,7 @@ const Navbar = () => {
             </Link>
 
             <Link to="/create-post" className="group">
-              <button className="relative w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border border-blue-500/20 rounded-xl text-white font-medium transition-all duration-200 group-hover: group-hover:shadow-lg group-hover:shadow-purple-500/25">
+              <button className="relative w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border border-blue-500/20 rounded-xl text-white font-medium transition-all duration-200 group-hover: group-hover:shadow-lg group-hover:shadow-purple-500/25 mb-8 sm:mb-0">
                 {/* Plus icon */}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

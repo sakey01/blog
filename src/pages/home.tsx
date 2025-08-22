@@ -1,9 +1,9 @@
 import Navbar from "../components/navbar";
 import Card from "../components/card";
+import Loading from "../components/loading";
+import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { useEffect, useState } from "react";
-import Loading from "../components/loading";
 
 // Object component
 type Post = {
@@ -23,7 +23,7 @@ export default function Home() {
     async function fetchPosts() {
       try {
         const snapshot = await getDocs(collection(db, "posts"));
-        
+        // Using firebase post data to render components
         const postsList = snapshot.docs.map((doc) => {
           const data = doc.data();
           return {

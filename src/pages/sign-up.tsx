@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export default function SignUp() {
   };
 
   const passwordStrength = getPasswordStrength(password);
-  const passwordsMatch = password2 && password === password2;
+  const passwordsMatch = password === password2;
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,21 +48,23 @@ export default function SignUp() {
     }
 
     try {
+      // Create user in firebase auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
-      // Save user profile in Firestore
+      // Create a field for user info in firebase db
       await setDoc(doc(db, "users", uid), {
-        username,
+        displayName,
         email,
         createdAt: serverTimestamp(),
       });
-
+      // Reset form fields
       setEmail("");
-      setUsername("");
+      setDisplayName("");
       setPassword("");
       setPassword2("");
-      toast.success("Account created successfully! 🎉");
+      toast.success("Account created successfully!");
+      // User gets sent to sign inpage
       navigate("/sign-in");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
@@ -135,15 +137,15 @@ export default function SignUp() {
 
               {/* Username Field */}
               <div>
-                <label htmlFor="userName" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
                   Username
                 </label>
                 <div className="relative">
                   <input
-                    id="userName"
+                    id="username"
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
                     required
                     className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500/50 transition-all duration-200"
                     placeholder="Choose a username"

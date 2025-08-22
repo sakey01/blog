@@ -10,19 +10,19 @@ A personal blog ranging from from everyday shower thoughts to general tech tips.
 
 ## Features
 - Sign up / Sign in with Firebase Auth
-- Create public posts
-- View public posts
-- Custom usernames to know who posted what
-- Like system so each user can only like a post
+- Upload and view public posts
+- Custom usernames to see who posted what
+- A like system so you can see what's popular
   
 ## Dependencies
-- heroicons
 - tailwindcss
+- heroicons
 - firebase
 - react-hot-toast
 - react-router-dom
 
 ## Notes for improvement
-- Using a state management library to reduce repetition
+- Using better state management to save time on processes
 - Better documentation
-- More clarity with components
+- Break down components better
+- Improved UI like feedback on actions
