@@ -24,3 +24,6 @@ A personal blog ranging from from everyday shower thoughts to general tech tips.
 ## Screenshots
 <img width="1147" height="614" alt="Screenshot 2025-08-22 at 17 24 05" src="https://github.com/user-attachments/assets/3f830a4d-4328-4f69-a4aa-91d80bfa9537" />
 <img width="1147" height="614" alt="Screenshot 2025-08-22 at 17 25 05" src="https://github.com/user-attachments/assets/b5074698-0796-4817-a2e2-e6edf63acfb3" />
+
+## Licensing
+ALl right reserved.
