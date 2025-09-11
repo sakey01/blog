@@ -1,8 +1,7 @@
 ## Personal Blog Page
 
 A personal blog ranging from from everyday shower thoughts to general tech tips. 
-
-### Powered with AI.
+Designed with the help of AI.
 
 ## Built with
 - React
