@@ -2,7 +2,7 @@
 
 A personal blog ranging from from everyday shower thoughts to general tech tips. 
 
-## Powered with AI.
+### Powered with AI.
 
 ## Built with
 - React
