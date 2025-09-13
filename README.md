@@ -1,30 +1,31 @@
-## Personal Blog Page
+# Personal Blog Page
 
-A personal blog ranging from from everyday shower thoughts to general tech tips. 
-Designed with the help of AI.
+## 💡About
+This is a blog application built with react, typescript and firebase. 
 
-## Built with
-- React
-- Tailwind CSS
-- Vite
-- Firebase
+You can view other's posts or if you feel like it, give them a like.
 
-## Features
-- Sign up / Sign in with Firebase Auth
-- Upload and view public posts
-- Authors for posts
-- A like system to see what's popular
-  
-## Dependencies
-- tailwindcss
-- heroicons
-- firebase
-- react-hot-toast
-- react-router-dom
+Creating posts is more complicated, you need to sign up with an email address and password. 
 
-## Screenshots
-<img width="1147" height="614" alt="Screenshot 2025-08-22 at 17 24 05" src="https://github.com/user-attachments/assets/3f830a4d-4328-4f69-a4aa-91d80bfa9537" />
-<img width="1147" height="614" alt="Screenshot 2025-08-22 at 17 25 05" src="https://github.com/user-attachments/assets/b5074698-0796-4817-a2e2-e6edf63acfb3" />
+Once done, you can write as many posts as you want.
 
-## License
-All right reserved.
+Note: This was my first time working with firebase and typescript. The design was also made with the help of AI.
+
+## 🧠 What I learned
+I got to see how firebase worked under the hood. How to create collections, connect the create post interface to the database and how to authenticate users. I learnt how to build a robust sign up page and keep users's data secure and that if you leak your firebase API key you'll be fine. And a bunch more...
+
+## What I could add
+
+## 🛠️ - Dependencies
+
+```React```
+
+```Firebase```
+
+```TypeScript```
+
+```Tailwind CSS```
+
+```Vite```
+
+## 🎥 - Preview
