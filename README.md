@@ -26,7 +26,7 @@ I got to see how firebase worked under the hood. How to create collections, conn
 ```React```
 ```Firebase```
 ```TypeScript```
-```Tailwind CSS```
+```Tailwindcss```
 ```Vite```
 
 ## 🎥 - Preview (coming soon)
