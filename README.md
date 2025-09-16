@@ -1,4 +1,4 @@
-# Personal Blog Page
+## Personal Blog Page
 
 ## 💡About
 This is a blog application built with react, typescript and firebase. 
